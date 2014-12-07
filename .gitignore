@@ -4,10 +4,13 @@ ehthumbs.db
 
 # Images
 *.jpg
-*.pgn
+*.pgm
 
 # Descriptors
 *.sift
+
+# Python bytecode files
+*.pyc
 
 # Folder config file
 Desktop.ini

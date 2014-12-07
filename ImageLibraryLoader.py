@@ -27,7 +27,7 @@ Directory traversal:
 '''
 
 #Define a function to recursively build a list of files:
-def build_dataset(path):
+def build_dataset(path, limit=None):
     items = []
 
     cat = path.split("/")[-1]
@@ -35,10 +35,14 @@ def build_dataset(path):
     #Get files in current folder:
     for file in get_jpg_files(path):
         items.append([path + '/'+file, cat, path + '/'+file[:-3]+"sift"])
+        if limit is not None and len(items) >= limit:
+            return items
 
     #Get files in subfolders:
     for subdir in get_immediate_subdirectories(path):
-        items.extend(build_dataset( path + '/'+subdir))
+        items.extend(build_dataset(path + '/'+subdir, limit=limit))
+        if limit is not None and len(items) >= limit:
+            return items
 
     return items
 
@@ -70,9 +74,9 @@ Interface
 '''
 
 #Define a function to get a list of image tuples with a list of SIFT descriptors:
-def get_image_list(folder="images"):
+def get_image_list(folder="images", limit=None):
     #Build a list of file paths:
-    images = build_dataset(folder)
+    images = build_dataset(folder, limit=limit)
 
     #Load in the corresponding descriptors:
     descriptors = [read_sifts(x[2]) for x in images]
@@ -88,7 +92,7 @@ Testing:
 '''
 
 if __name__ == '__main__':
-    images,descriptors = get_image_list()
+    images,descriptors = get_image_list(limit=10)
 
     print images[0]
     print descriptors[0]
