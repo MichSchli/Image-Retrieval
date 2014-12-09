@@ -32,7 +32,7 @@ Vector Quantization:
 
 #Define a function to calculate a word histogram from a list of descriptors and a trained clustering:
 def get_bag_of_words(descriptors, kmeans):
-    words = kmeans.fit_predict(descriptors)
+    words = kmeans.predict(descriptors)
 
     h = {}
 
@@ -126,9 +126,9 @@ if __name__ == '__main__':
 
     images, descriptors = ImageLibraryLoader.get_image_list(limit=4)
 
-    print cross_validate(unwrap_descriptor_list(descriptors), 10)
+    #print cross_validate(unwrap_descriptor_list(descriptors), 10)
     #t = train_kmeans(unwrap_descriptor_list(descriptors), 10)
 
     #print evaluate(t, unwrap_descriptor_list(descriptors))
 
-    #print construct_table(10, limit=4)
+    print construct_table(10, limit=4)

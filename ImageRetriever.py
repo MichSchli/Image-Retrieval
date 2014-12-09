@@ -79,7 +79,7 @@ Testing:
 '''
 
 if __name__ == '__main__':
-    cb = Codebook.construct_table(20, limit=10)
+    cb = Codebook.construct_table(1000, limit=20)
 
     bows = [x[1] for x in cb]
 
