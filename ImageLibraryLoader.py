@@ -79,7 +79,7 @@ def get_image_list(folder="images", limit=None):
     descriptors = [read_sifts(x[2]) for x in images]
 
     #Remove the descriptor paths:
-    images = [x[:1] for x in images]
+    images = [x[0] for x in images]
 
     #Return the result:
     return images, descriptors

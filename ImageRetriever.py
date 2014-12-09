@@ -4,7 +4,8 @@ Imports:
 '''
 import Codebook
 import math
-
+from skimage.viewer import ImageViewer
+from skimage.io import imread
 '''
 Image matching algorithm:
 '''
@@ -20,7 +21,6 @@ def find_best_match(image_index, bow_list, metric):
         if image_index != i:
             #Calculate the distance:
             d = metric(bow_list[image_index], bow_list[i])
-            print d
 
             #If the new distance is better, memorize it:
             if best_distance == None or best_distance > d:
@@ -74,17 +74,32 @@ def euclidean_distance(bow1, bow2):
 Interface:
 '''
 
+def show_best_match(image_id, codebook, metric):
+    bows = [x[1] for x in codebook]
+
+    if metric == 'euclidean':
+        m = euclidean_distance
+    elif metric == 'kullback-leibler':
+        m = symmetric_kullback_leibler
+    elif metric == 'common words':
+        m = common_words
+
+    best_match_path = codebook[find_best_match(image_id, bows, m)][0]
+
+    img = imread(best_match_path)
+    view = ImageViewer(img)
+    view.show()
+
+
 '''
 Testing:
 '''
 
 if __name__ == '__main__':
-    cb = Codebook.construct_table(500, limit=20)
+    cb = Codebook.construct_table(20, limit=5)
 
-    bows = [x[1] for x in cb]
+    img = imread(cb[0][0])
+    view = ImageViewer(img)
+    view.show()
 
-    img = 0
-
-    print bows
-    print cb[0][0]
-    print cb[find_best_match(img, bows, symmetric_kullback_leibler)][0]
+    show_best_match(0, cb, 'euclidean')
