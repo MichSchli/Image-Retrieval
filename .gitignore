@@ -6,6 +6,9 @@ ehthumbs.db
 *.jpg
 *.pgm
 
+# Zip files
+*.zip
+
 # Descriptors
 *.sift
 
