@@ -79,11 +79,12 @@ Testing:
 '''
 
 if __name__ == '__main__':
-    cb = Codebook.construct_table(1000, limit=20)
+    cb = Codebook.construct_table(500, limit=20)
 
     bows = [x[1] for x in cb]
 
     img = 0
 
     print bows
-    print find_best_match(img, bows, symmetric_kullback_leibler)
+    print cb[0][0]
+    print cb[find_best_match(img, bows, symmetric_kullback_leibler)][0]

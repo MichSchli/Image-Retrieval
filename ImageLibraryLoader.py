@@ -3,10 +3,7 @@ __author__ = 'Michael'
 Imports:
 '''
 
-from skimage.feature import daisy
-from skimage.io import ImageCollection
-from skimage.io import imread
-from skimage.viewer import ImageViewer
+import random
 import os
 
 '''
@@ -27,7 +24,7 @@ Directory traversal:
 '''
 
 #Define a function to recursively build a list of files:
-def build_dataset(path, limit=None):
+def build_dataset(path):
     items = []
 
     cat = path.split("/")[-1]
@@ -35,14 +32,10 @@ def build_dataset(path, limit=None):
     #Get files in current folder:
     for file in get_jpg_files(path):
         items.append([path + '/'+file, cat, path + '/'+file[:-3]+"sift"])
-        if limit is not None and len(items) >= limit:
-            return items
 
     #Get files in subfolders:
     for subdir in get_immediate_subdirectories(path):
-        items.extend(build_dataset(path + '/'+subdir, limit=limit))
-        if limit is not None and len(items) >= limit:
-            return items
+        items.extend(build_dataset(path + '/'+subdir))
 
     return items
 
@@ -76,7 +69,11 @@ Interface
 #Define a function to get a list of image tuples with a list of SIFT descriptors:
 def get_image_list(folder="images", limit=None):
     #Build a list of file paths:
-    images = build_dataset(folder, limit=limit)
+    images = build_dataset(folder)
+
+    #Pick a sample if a limit on the number of images is set:
+    if limit is not None:
+        images = random.sample(images, limit)
 
     #Load in the corresponding descriptors:
     descriptors = [read_sifts(x[2]) for x in images]
