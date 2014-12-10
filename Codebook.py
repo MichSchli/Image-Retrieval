@@ -123,12 +123,10 @@ def construct_table(K, limit=None):
 #Define a function to save a codebook to a file:
 def save_codebook(codebook, filename):
     pickle.dump(codebook, open( filename, "wb" ) )
-    f.close()
 
 #Define a funciton to load a codebook from a file
 def load_codebook(filename):
     cb = pickle.load( open(filename, "rb" ) )
-    f.close()
     return cb
 
 
@@ -157,10 +155,3 @@ if __name__ == '__main__':
         f.write(str(ele)+'\n')
 
     f.close()
-    #print cross_validate(unwrap_descriptor_list(descriptors), 10)
-    #t = train_kmeans(unwrap_descriptor_list(descriptors), 10)
-
-    #print evaluate(t, unwrap_descriptor_list(descriptors))
-
-
-    #print construct_table(10, limit=4)

@@ -110,6 +110,7 @@ Testing:
 
 if __name__ == '__main__':
     cb = Codebook.construct_table(20, limit=5)
+    Codebook.save_codebook(cb, "codebook_1000_50.cb")
 
     img = imread(cb[0][0])
     view = ImageViewer(img)
