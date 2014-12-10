@@ -5,6 +5,8 @@ Imports:
 import ImageLibraryLoader
 from sklearn.cluster import KMeans
 from itertools import chain
+import pickle
+import os
 
 '''
 Utility functions:
@@ -118,17 +120,47 @@ def construct_table(K, limit=None):
     #Zip the lists together:
     return zip(images, bows)
 
+#Define a function to save a codebook to a file:
+def save_codebook(codebook, filename):
+    pickle.dump(codebook, open( filename, "wb" ) )
+    f.close()
+
+#Define a funciton to load a codebook from a file
+def load_codebook(filename):
+    cb = pickle.load( open(filename, "rb" ) )
+    f.close()
+    return cb
+
+
 '''
 Testing:
 '''
 
 if __name__ == '__main__':
+    #Get a bunch of descriptors:
+    images, descriptors = ImageLibraryLoader.get_image_list(limit=1000)
 
-    images, descriptors = ImageLibraryLoader.get_image_list(limit=4)
+    #Define a list of K values:
+    N_clusters = [500, 750, 1000, 1250, 1500]
 
+    #Define a list of validation scores:
+    cv_scores = []
+
+    #Iterate through the list:
+    for n in N_clusters:
+        print "Testting with", n,"clusters."
+        cv_scores.append(cross_validate(unwrap_descriptor_list(descriptors), n))
+
+    f=open('test_results.txt','w')
+
+    for ele in cv_scores:
+        f.write(str(ele)+'\n')
+
+    f.close()
     #print cross_validate(unwrap_descriptor_list(descriptors), 10)
     #t = train_kmeans(unwrap_descriptor_list(descriptors), 10)
 
     #print evaluate(t, unwrap_descriptor_list(descriptors))
 
-    print construct_table(10, limit=4)
+
+    #print construct_table(10, limit=4)

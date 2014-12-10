@@ -55,6 +55,17 @@ def symmetric_kullback_leibler(bow1, bow2):
 
     return kbsum/2.0
 
+#Bhattacharyya distance:
+def bhattacharyya_distance(bow1, bow2):
+    ks1 = set(bow1.keys())
+    ks2 = set(bow2.keys())
+    s = 0
+
+    for i in ks1.intersection(ks2):
+        s += math.sqrt(bow1[i]*bow2[i])
+
+    return -math.log(s)
+
 #Euclidean distance:
 def euclidean_distance(bow1, bow2):
     ks1 = set(bow1.keys())
@@ -81,6 +92,8 @@ def show_best_match(image_id, codebook, metric):
         m = euclidean_distance
     elif metric == 'kullback-leibler':
         m = symmetric_kullback_leibler
+    elif metric == 'bhattacharyya':
+        m = bhattacharyya_distance
     elif metric == 'common words':
         m = common_words
 
@@ -102,4 +115,4 @@ if __name__ == '__main__':
     view = ImageViewer(img)
     view.show()
 
-    show_best_match(0, cb, 'euclidean')
+    show_best_match(0, cb, 'bhattacharyya')
