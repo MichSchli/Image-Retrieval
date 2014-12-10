@@ -96,6 +96,8 @@ def show_best_match(image_id, codebook, metric):
         m = bhattacharyya_distance
     elif metric == 'common words':
         m = common_words
+    else:
+        return "Error"
 
     best_match_path = codebook[find_best_match(image_id, bows, m)][0]
 
@@ -109,11 +111,12 @@ Testing:
 '''
 
 if __name__ == '__main__':
-    cb = Codebook.construct_table(20, limit=5)
-    Codebook.save_codebook(cb, "codebook_1000_50.cb")
+    #cb = Codebook.construct_table(1000, limit=50)
+    #Codebook.save_codebook(cb, "codebook_1000_50.cb")
+    cb = Codebook.load_codebook("codebook_1000_50.cb")
 
     img = imread(cb[0][0])
     view = ImageViewer(img)
     view.show()
 
-    show_best_match(0, cb, 'bhattacharyya')
+    show_best_match(0, cb, 'kullback-leibler')
