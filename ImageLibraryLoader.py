@@ -66,6 +66,14 @@ def read_sifts(path):
 Interface
 '''
 
+def get_data_list(folder="images"):
+    data = build_dataset(folder)
+
+    images = [x[0] for x in data]
+    descriptors = [x[2] for x in data]
+
+    return images, descriptors
+
 #Define a function to get a list of image tuples with a list of SIFT descriptors:
 def get_image_list(folder="images", limit=None):
     #Build a list of file paths:

@@ -84,6 +84,7 @@ def cross_validate(test_samples, number_of_clusters, number_of_folds=5):
 
     #Iterate over the folds:
     for i in xrange(number_of_folds):
+        print i
         #Get a view of the data:
         train = folds[:]
 
@@ -104,6 +105,15 @@ def cross_validate(test_samples, number_of_clusters, number_of_folds=5):
 Interface:
 '''
 
+def construct_full_indexing(kmeans):
+    #Defines the update rate:
+
+    images, descriptors = ImageLibraryLoader.get_data_list()
+    bows = [get_bag_of_words(ImageLibraryLoader.read_sifts(x), kmeans) for x in descriptors]
+
+    return images, bows
+
+
 #Define a function to construct table of image/bag-of-words pairs:
 def construct_table(K, limit=None):
     images, descriptors = ImageLibraryLoader.get_image_list(limit=limit)
@@ -118,7 +128,7 @@ def construct_table(K, limit=None):
     bows = calculate_bags_of_words(descriptors, kmeans)
 
     #Zip the lists together:
-    return zip(images, bows)
+    return kmeans, zip(images, bows)
 
 #Define a function to save a codebook to a file:
 def save_codebook(codebook, filename):
@@ -136,10 +146,10 @@ Testing:
 
 if __name__ == '__main__':
     #Get a bunch of descriptors:
-    images, descriptors = ImageLibraryLoader.get_image_list(limit=1000)
+    images, descriptors = ImageLibraryLoader.get_image_list(limit=100)
 
     #Define a list of K values:
-    N_clusters = [500, 750, 1000, 1250, 1500]
+    N_clusters = [1750, 2000, 2250, 2500, 2750, 3000]
 
     #Define a list of validation scores:
     cv_scores = []
@@ -147,11 +157,4 @@ if __name__ == '__main__':
     #Iterate through the list:
     for n in N_clusters:
         print "Testting with", n,"clusters."
-        cv_scores.append(cross_validate(unwrap_descriptor_list(descriptors), n))
-
-    f=open('test_results.txt','w')
-
-    for ele in cv_scores:
-        f.write(str(ele)+'\n')
-
-    f.close()
+        print cross_validate(unwrap_descriptor_list(descriptors), n)

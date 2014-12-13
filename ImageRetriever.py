@@ -113,10 +113,17 @@ Testing:
 if __name__ == '__main__':
     #cb = Codebook.construct_table(1000, limit=50)
     #Codebook.save_codebook(cb, "codebook_1000_50.cb")
-    cb = Codebook.load_codebook("codebook_1000_50.cb")
+    #cb = Codebook.load_codebook("codebook_1000_50.cb")
 
-    img = imread(cb[0][0])
-    view = ImageViewer(img)
-    view.show()
+    kmeans, _ = Codebook.construct_table(1,limit=1)
 
-    show_best_match(0, cb, 'kullback-leibler')
+    imgs, cb = Codebook.construct_full_indexing(kmeans)
+
+    print len(imgs)
+    print len(cb)
+
+    #img = imread(cb[0][0])
+    #view = ImageViewer(img)
+    #view.show()
+
+    #show_best_match(0, cb, 'kullback-leibler')
