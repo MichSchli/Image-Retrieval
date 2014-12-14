@@ -2,6 +2,9 @@
 Thumbs.db
 ehthumbs.db
 
+# Codebook files:
+*.cb
+
 # Images
 *.jpg
 *.pgm

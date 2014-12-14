@@ -59,6 +59,8 @@ def read_sifts(path):
 
         sifts.append([int(x) for x in lsplit[4:]])
 
+    if len(sifts) == 0:
+        print path
     return sifts
 
 

@@ -34,6 +34,9 @@ Vector Quantization:
 
 #Define a function to calculate a word histogram from a list of descriptors and a trained clustering:
 def get_bag_of_words(descriptors, kmeans):
+    if len(descriptors) == 0:
+        return {}
+
     words = kmeans.predict(descriptors)
 
     h = {}

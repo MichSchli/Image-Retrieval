@@ -115,12 +115,21 @@ if __name__ == '__main__':
     #Codebook.save_codebook(cb, "codebook_1000_50.cb")
     #cb = Codebook.load_codebook("codebook_1000_50.cb")
 
-    kmeans, _ = Codebook.construct_table(1,limit=1)
+    kmeans, _ = Codebook.construct_table(2000,limit=100)
+
+    print "kmeans done"
 
     imgs, cb = Codebook.construct_full_indexing(kmeans)
 
+    Codebook.save_codebook((imgs, cb), "indexing.cb")
+
     print len(imgs)
     print len(cb)
+
+    imgs1, cb1 = Codebook.load_codebook("indexing.cb")
+
+    print len(imgs1)
+    print len(cb1)
 
     #img = imread(cb[0][0])
     #view = ImageViewer(img)
