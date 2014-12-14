@@ -82,9 +82,25 @@ def euclidean_distance(bow1, bow2):
     return math.sqrt(s)
 
 '''
+Evaluation:
+'''
+
+#Define a method to calculate the number of images matched to an image from the same category:
+def evaluate_indexing(categories, indexing, metric):
+    corrects = 0
+
+    for i in xrange(len(indexing)):
+        match = find_best_match(i, indexing, metric)
+        if categories[i] == categories[match]:
+            corrects += 1
+
+    return corrects / float(len(indexing))
+
+'''
 Interface:
 '''
 
+#Define a method to find and show the best match using a string representation of the metric:
 def show_best_match(image_id, codebook, metric):
     bows = [x[1] for x in codebook]
 
@@ -112,21 +128,15 @@ Testing:
 
 if __name__ == '__main__':
 
-    kmeans, _ = Codebook.construct_table(2000,limit=100)
+    kmeans, _ = Codebook.construct_table(1,limit=1)
 
     print "kmeans done"
 
     imgs, cats, cb = Codebook.construct_full_indexing(kmeans)
 
-    Codebook.save_codebook((imgs, cats, cb), "indexing.cb")
+    print "indexing done"
 
-    print len(imgs)
-    print len(cb)
-
-    imgs1, cat1, cb1 = Codebook.load_codebook("indexing.cb")
-
-    print len(imgs1)
-    print len(cb1)
+    evaluate_indexing(cats, cb, euclidean_distance)
 
     #img = imread(cb[0][0])
     #view = ImageViewer(img)
