@@ -108,11 +108,15 @@ def cross_validate(test_samples, number_of_clusters, number_of_folds=5):
 Interface:
 '''
 
+#Define a function to construct an indexing of the complete dataset:
 def construct_full_indexing(kmeans, folder='images'):
-
+    #Get the data:
     images, categories, descriptors = ImageLibraryLoader.get_data_list()
+
+    #Calculate bags of words:
     bows = [get_bag_of_words(ImageLibraryLoader.read_sifts(x), kmeans) for x in descriptors]
 
+    #Return the lists of images, categories, and bags of words:
     return images, categories, bows
 
 

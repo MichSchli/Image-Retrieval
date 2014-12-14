@@ -27,6 +27,7 @@ Directory traversal:
 def build_dataset(path):
     items = []
 
+    #Get the category:
     cat = path.split("/")[-1]
 
     #Get files in current folder:
@@ -68,6 +69,7 @@ def read_sifts(path):
 Interface
 '''
 
+#Define a function to get the full list of data, split up into images, categories, and descriptors:
 def get_data_list(folder="images"):
     data = build_dataset(folder)
 
@@ -77,7 +79,7 @@ def get_data_list(folder="images"):
 
     return images, categories, descriptors
 
-#Define a function to get a list of image tuples with a list of SIFT descriptors:
+#Define a function to get a list of images with a list of SIFT descriptors:
 def get_image_list(folder="images", limit=None):
     #Build a list of file paths:
     images = build_dataset(folder)
@@ -100,8 +102,10 @@ Testing:
 '''
 
 if __name__ == '__main__':
+    #Get an image list:
     images,descriptors = get_image_list(limit=10)
 
+    #Make sure there is something in the list:
     print images[0]
     print descriptors[0]
 
