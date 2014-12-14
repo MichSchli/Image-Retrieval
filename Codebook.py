@@ -108,13 +108,12 @@ def cross_validate(test_samples, number_of_clusters, number_of_folds=5):
 Interface:
 '''
 
-def construct_full_indexing(kmeans):
-    #Defines the update rate:
+def construct_full_indexing(kmeans, folder='images'):
 
-    images, descriptors = ImageLibraryLoader.get_data_list()
+    images, categories, descriptors = ImageLibraryLoader.get_data_list()
     bows = [get_bag_of_words(ImageLibraryLoader.read_sifts(x), kmeans) for x in descriptors]
 
-    return images, bows
+    return images, categories, bows
 
 
 #Define a function to construct table of image/bag-of-words pairs:

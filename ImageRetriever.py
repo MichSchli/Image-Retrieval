@@ -111,22 +111,19 @@ Testing:
 '''
 
 if __name__ == '__main__':
-    #cb = Codebook.construct_table(1000, limit=50)
-    #Codebook.save_codebook(cb, "codebook_1000_50.cb")
-    #cb = Codebook.load_codebook("codebook_1000_50.cb")
 
     kmeans, _ = Codebook.construct_table(2000,limit=100)
 
     print "kmeans done"
 
-    imgs, cb = Codebook.construct_full_indexing(kmeans)
+    imgs, cats, cb = Codebook.construct_full_indexing(kmeans)
 
-    Codebook.save_codebook((imgs, cb), "indexing.cb")
+    Codebook.save_codebook((imgs, cats, cb), "indexing.cb")
 
     print len(imgs)
     print len(cb)
 
-    imgs1, cb1 = Codebook.load_codebook("indexing.cb")
+    imgs1, cat1, cb1 = Codebook.load_codebook("indexing.cb")
 
     print len(imgs1)
     print len(cb1)
