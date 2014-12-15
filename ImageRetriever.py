@@ -1,4 +1,4 @@
-__author__ = 'Michael'
+__author__ = 'Michael, Mia, Daniela'
 '''
 Imports:
 '''
@@ -125,8 +125,6 @@ def show_best_match(image_id, codebook, metric):
 '''
 Testing:
 '''
-
-
 
 if __name__ == '__main__':
 

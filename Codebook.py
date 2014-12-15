@@ -1,4 +1,4 @@
-__author__ = 'Michael'
+__author__ = 'Michael, Mia, Daniela'
 '''
 Imports:
 '''
