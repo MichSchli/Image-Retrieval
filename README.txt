@@ -22,7 +22,9 @@ INSTRUCTIONS
 	by running them from the command line.
 
 	Be aware that indexing and especially codebook generation are expensive operations computationally. As such, we recommend
-	using a stored indexing. We provide the file "indexing.cb" for that purpose.
+	using a stored indexing. We have not included such a file, nor have we included the images or sift keys for the
+	Caltech 101 dataset. This is due mainly to the size constraints on the Absalon system. Should you wish to use 
+	either, please contact us and we shall provide an archive.
 
 CONTACT
 	

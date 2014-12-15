@@ -126,31 +126,34 @@ def show_best_match(image_id, codebook, metric):
 Testing:
 '''
 
+
+
 if __name__ == '__main__':
 
     choice = input("Choose whether to generate an indexing or use a saved serialization:\n0: Generate new\n1: Run saved file")
-	if choice == 0:
-		print "Clustering sift files..."
-		kmeans, _ = Codebook.construct_table(2000,limit=100)
-		print "Clustering complete.\nBuilding indexing..."
-		imgs, _, cb = Codebook.construct_full_indexing(kmeans)
-		path = input("Indexing done.\nPlease write a filename for saving.")
-		print "Saving..."
-		Codebook.save_codebook((imgs, cats, cb), path)
-	else:
-		path = input("Please write a filename for loading.")
-		imgs, _, cb = Codebook.load_codebook(path)
-		
-	#Choose a random image:
+
+    if choice == 0:
+        print "Clustering sift files..."
+        kmeans, _ = Codebook.construct_table(2000,limit=100)
+        print "Clustering complete.\nBuilding indexing..."
+        imgs, _, cb = Codebook.construct_full_indexing(kmeans)
+        path = input("Indexing done.\nPlease write a filename for saving.")
+        print "Saving..."
+        Codebook.save_codebook((imgs, cats, cb), path)
+    else:
+        path = input("Please write a filename for loading.")
+        imgs, _, cb = Codebook.load_codebook(path)
+
+    #Choose a random image:
     i = random.choice(range(len(imgs)))
-	
-	#Show the image:
-	img = imread(imgs[i])
-    view = ImageViewer(img)	
-	view.show()
-	
-	#Find some matches:
-	m = input("Choose a matching heuristic. Choices are 'common words', 'bhattacharyya', 'euclidean', and 'kullback-leibler'.")
+
+    #Show the image:
+    img = imread(imgs[i])
+    view = ImageViewer(img)
+    view.show()
+
+    #Find some matches:
+    m = input("Choose a matching heuristic. Choices are 'common words', 'bhattacharyya', 'euclidean', and 'kullback-leibler'.")
 
     #Show the match:
-	show_best_match(i, cb, m)
+    show_best_match(i, cb, m)
